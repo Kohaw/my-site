@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Анкета</title>
+  <style>
+    :root {
+      --bg: #f2f4f7;
+      --card-bg: #fff;
+      --accent: #4b7bec;
+      --text: #333;
+      --radius: 14px;
+      --transition: 0.3s ease;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    form {
+      background: var(--card-bg);
+      padding: 30px 40px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 480px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+    }
+
+    label {
+      display: block;
+      margin-top: 16px;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"] {
+      width: 100%;
+      padding: 10px 14px;
+      margin-top: 6px;
+      border: 1.5px solid #ccc;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      background-color: #fafafa;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(75, 123, 236, 0.2);
+      background-color: #fff;
+    }
+
+    .error {
+      border-color: #d93025 !important;
+    }
+
+    fieldset {
+      border: none;
+      margin-top: 20px;
+      padding: 0;
+    }
+
+    legend {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      user-select: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+      transition: background-color var(--transition), transform var(--transition);
+    }
+
+    .radio-option:hover {
+      background: #f0f3fa;
+      transform: translateY(-1px);
+    }
+
+    input[type="radio"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #ccc;
+      border-radius: 50%;
+      position: relative;
+      transition: border-color var(--transition), background var(--transition);
+      cursor: pointer;
+    }
+
+    input[type="radio"]:checked {
+      border-color: var(--accent);
+      background: radial-gradient(circle at center, var(--accent) 45%, transparent 46%);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px 18px;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    button[type="submit"] {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    button[type="submit"]:hover {
+      background: #3b6de0;
+      transform: translateY(-1px);
+    }
+
+    button[type="reset"] {
+      background: #e5e7eb;
+      color: #333;
+    }
+
+    button[type="reset"]:hover {
+      background: #d4d6da;
+      transform: translateY(-1px);
+    }
+
+    .message {
+      margin-top: 12px;
+      color: #d93025;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-align: center;
+      display: none;
+    }
+
+    @media (max-width: 480px) {
+      form { padding: 24px; }
+      h1 { font-size: 1.5rem; }
+      .radio-group { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <form id="survey" method="post" action="#">
+    <h1>Анкета</h1>
+
+    <label>Фамилия 
+      <input type="text" id="surname" name="surname" placeholder="Иванов" required minlength="2"
+      pattern="^[А-Яа-яЁё\\s-]+$">
+    </label>
+
+    <label>Имя 
+      <input type="text" id="name" name="name" placeholder="Иван" required minlength="2"
+      pattern="^[А-Яа-яЁё\\s-]+$">
+    </label>
+
+    <label>Отчество
+      <input type="text" id="patronymic" name="patronymic" placeholder="Иванович"
+      pattern="^[А-Яа-яЁё\\s-]+$">
+    </label>
+
+    <label>Дата рождения
+      <input type="date" id="dob" name="dob" required>
+    </label>
+
+    <fieldset>
+      <legend>Пол</legend>
+      <div class="radio-group">
+        <label class="radio-option">
+          <input type="radio" name="gender" value="male"> Мужской
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="gender" value="female"> Женский
+        </label>
+      </div>
+    </fieldset>
+
+    <label>Телефон 
+      <input type="tel" id="phone" name="phone" placeholder="+7/8 xxx xxx xx xx" required>
+    </label>
+
+    <label>Электронная почта 
+      <input type="email" id="email" name="email" placeholder="example@mail.ru" required>
+    </label>
+
+    <div class="buttons">
+      <button type="submit" id="submitBtn">Отправить</button>
+      <button type="reset">Очистить</button>
+    </div>
+
+    <div class="message" id="errorMessage" aria-live="polite"></div>
+  </form>
+
+  <script>
+    const dob = document.getElementById('dob');
+    const email = document.getElementById('email');
+    const phone = document.getElementById('phone');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorMessage = document.getElementById('errorMessage');
+
+    function calculateAge(birthDate) {
+      if (!birthDate) return null;
+      const today = new Date();
+      const b = new Date(birthDate);
+      let age = today.getFullYear() - b.getFullYear();
+      const m = today.getMonth() - b.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < b.getDate())) age--;
+      return age;
+    }
+
+    function validateEmail() {
+      const value = email.value.trim();
+      const regex = /^[A-Za-z0-9][A-Za-z0-9._%+-]*@[A-Za-z0-9.-]+\.(com|ru)$/;
+      return regex.test(value);
+    }
+
+    function validatePhone() {
+      const value = phone.value.trim();
+      const regex = /^(?:\+7|8)\d{10}$/;
+      return regex.test(value);
+    }
+
+    function checkAge() {
+      const val = dob.value;
+      if (!val) {
+        submitBtn.disabled = false;
+        errorMessage.style.display = 'none';
+        return;
+      }
+      const age = calculateAge(val);
+      if (age < 18) {
+        submitBtn.disabled = true;
+        errorMessage.textContent = 'Отправка невозможна — возраст меньше 18 лет.';
+        errorMessage.style.display = 'block';
+      } else {
+        submitBtn.disabled = false;
+        errorMessage.style.display = 'none';
+      }
+    }
+
+    document.getElementById('survey').addEventListener('submit', e => {
+      let valid = true;
+      errorMessage.style.display = 'none';
+      email.classList.remove('error');
+      phone.classList.remove('error');
+
+      if (!validateEmail()) {
+        valid = false;
+        email.classList.add('error');
+        errorMessage.textContent = 'Некорректный email.';
+      } else if (!validatePhone()) {
+        valid = false;
+        phone.classList.add('error');
+        errorMessage.textContent = 'Некорректный номер.';
+      } else {
+        const age = calculateAge(dob.value);
+        if (age !== null && age < 18) {
+          valid = false;
+          errorMessage.textContent = 'Отправка невозможна — возраст меньше 18 лет.';
+        }
+      }
+
+      if (!valid) {
+        e.preventDefault();
+        errorMessage.style.display = 'block';
+      }
+    });
+
+    dob.addEventListener('change', checkAge);
+  </script>
+</body>
+</html>
